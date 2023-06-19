@@ -22,7 +22,7 @@ export class PaymentTransaction {
 
 	private static createDate(): string{
         let date: Date = new Date();
-        let dateString: string =  date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+        let dateString: string =  date.getFullYear() + "-" + (date.getMonth().toString().length===1 ? "0"+date.getMonth():date.getMonth()) + "-" + date.getDate();
         return dateString;
     }
 }

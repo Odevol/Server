@@ -14,6 +14,18 @@ async function addTransactionToDB(transaction: PaymentTransaction){
     } 
 }
 
+async function deleteTransactionFromDB(transactionid: number){
+    try {
+        if(!client) connectToMongoDB();
+        const db = client.db("TransactionsDB");
+        const collection = db.collection("TransactionsCollection");
+        const result = collection.findOneAndDelete({id: transactionid});
+        return result;
+    }catch(err){
+        console.log(err);
+    }
+}
+
 async function getLastId(){
     try{
         if(!client) connectToMongoDB();
@@ -37,4 +49,25 @@ async function connectToMongoDB() {
         console.log(err);
     }
 }
-export {addTransactionToDB, getLastId}
+
+async function findInMongoDB(transactionId: number) {
+    if(!client) connectToMongoDB();
+        const db = client.db("TransactionsDB");
+        const collection = db.collection("TransactionsCollection");
+        const result = await collection.findOne({id: transactionId});
+        return result;
+}
+
+async function getAllDocsFromDB() {
+    try{
+        if(!client) connectToMongoDB();
+        const db = client.db("TransactionsDB");
+        const collection = db.collection("TransactionsCollection");
+        const allDocs = await collection.find().toArray();
+        return allDocs;
+    }catch(err){
+        console.log(err);
+    }
+}
+
+export {addTransactionToDB, getLastId, deleteTransactionFromDB, findInMongoDB, getAllDocsFromDB}
