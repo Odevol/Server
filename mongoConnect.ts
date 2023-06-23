@@ -3,6 +3,14 @@ import { PaymentTransaction } from "./PaymentTransaction";
 const MongoClient = require("mongodb").MongoClient;
 const client = new MongoClient("mongodb://127.0.0.1:27017/");
 
+// РЕВЬЮ. Есть проблема в дублировании кода, в каждом методе дублируются строки
+// ```
+// const db = client.db("TransactionsDB");
+// const collection = db.collection("TransactionsCollection");
+// ```
+// Вот тут лучше либо сделать класс где в конструкторе в приватное поле записывается ссылка
+// на `collection`, либо сделать не экспортируемую функцию (считай приватную) которая возвращает ссылку на коллекцию
+// либо возвращает ошибку
 async function addTransactionToDB(transaction: PaymentTransaction){
     try {
         if(!client) connectToMongoDB();

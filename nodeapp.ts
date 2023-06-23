@@ -7,6 +7,9 @@ const jsonParser = express.json();
 
 const urlencodedParser = express.urlencoded({extended: false});
 
+// Все файлы лежат в корневой директории - это не правильно, вот пример типичной структуры приложения
+// `https://www.scaler.com/topics/nodejs/node-js-project-structure/`
+
 app.post("/api/transaction", jsonParser, (req,res)=>{
     saveTransaction({value: req.body.value, category: req.body.category});
     res.sendStatus(200);
