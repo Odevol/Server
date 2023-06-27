@@ -3,7 +3,7 @@ import { CreatePaymentTransactionRequestPayload } from "./CreatePaymentTransacti
 export class PaymentTransaction {
 
 	// Идентификатор транзакции
-	id: number;
+	_id: string;
 
 	// Сумма транзакции
 	value: number;

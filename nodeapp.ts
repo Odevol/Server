@@ -7,8 +7,8 @@ const jsonParser = express.json();
 
 const urlencodedParser = express.urlencoded({extended: false});
 
-app.post("/api/transaction", jsonParser, (req,res)=>{
-    saveTransaction({value: req.body.value, category: req.body.category});
+app.post("/api/transaction", jsonParser, async (req,res)=>{
+    const result = await saveTransaction({value: req.body.value, category: req.body.category});
     res.sendStatus(200);
 })
 
@@ -16,7 +16,7 @@ app.delete("/api/transaction", jsonParser, async (req, res)=>{
     const result = await deleteTransaction(req.body.id);
     if(result) res.sendStatus(200);
     else {
-        res.status(200).send("Transaction is not found");
+        res.status(400).send("Transaction is not found");
     }
 })
 
@@ -24,7 +24,7 @@ app.get("/api/transaction", jsonParser, async (res, req)=> {
     const result = await findTransaction(res.body.id);
     if(result) req.status(200).send(result);
     else {
-        req.status(200).send("Transaction is not found");
+        req.status(400).send("Transaction is not found");
     }
 })
 
