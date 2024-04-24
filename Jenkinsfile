@@ -10,8 +10,8 @@ pipeline {
         }
 
         stage('node-test'){
+            agent node:latest
             steps{
-                nodejs(nodeJSInstallationName: 'Node 6.x', configId: '<config-file-provider-id>')
                 sh 'npm install'
                 sh 'npm run test'
             }
