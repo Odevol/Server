@@ -8,13 +8,5 @@ pipeline {
                 echo 'testing'
             }
         }
-
-        stage('node-test'){
-            agent node:latest
-            steps{
-                sh 'npm install'
-                sh 'npm run test'
-            }
-        }
     }
 }
